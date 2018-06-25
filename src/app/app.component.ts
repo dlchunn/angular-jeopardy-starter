@@ -8,9 +8,13 @@ import { DataService } from './data.service'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+title = 'our game'
+
+  
 
   questionInfo;
+  score =0;
+  answer;
 
   constructor(private DataService: DataService){}
 
@@ -19,13 +23,24 @@ export class AppComponent implements OnInit {
       .subscribe(
         questionInfo => {
           this.questionInfo = questionInfo[0];
+          console.log(this.questionInfo.answer)
         }
       )
   }
 
+
   ngOnInit(){
     this.getQuestionInfo()
   }
+ submit(){
+   if(this.answer.toLowerCase() ==this.questionInfo.answer.toLowerCase()){
+    this.score= this.score +this.questionInfo.value;
+   }else{
+    this.score-= this.questionInfo.value;
+   }
+   this.getQuestionInfo()
+   this.answer="";
+ }
 
+  }
 
-}
